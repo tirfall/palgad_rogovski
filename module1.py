@@ -1,4 +1,6 @@
 ﻿from datetime import date,datetime
+import pickle
+import os
 
 def Lisa_andmed(i:list,p:list):
     """Kirjeldus
@@ -91,22 +93,6 @@ def findnimi(i:list,p:list):
 
     return i,p
 
-def sissenumb(i:list,p:list):
-    nimi=input("Kelle palk tahad leia? ")
-    while nimi not in i:
-        nimi=input("kirjuta õige nimi ")
-    n=i.count(nimi)
-    if n!=1:
-        print(f"Siin on mõned inimesed kes nimi on {nimi}") 
-        kopia=i.copy()
-        for i in range(n):
-            ind=kopia.index(nimi)
-            kopia.remove(nimi)
-            kopia.insert(ind,"")
-            print(f"{i+1} {nimi} saab {p[ind]}")
-    else:
-        ind=i.index(nimi)
-        print(f"{nimi} saab {p[ind]}")
        
 
 def palko(i:list,p:list):
@@ -123,23 +109,95 @@ def palko(i:list,p:list):
             print(f"{i[x]} saab täpselt {palk}")
     return i,p
 
-def top3(i:list,p:list): 
-    kopia=p.copy()
+def tomami(x:list,y:list): 
+    """Kirjeldus...
+    :param list x: Inimeste järjend
+    :param list y: Palgade järjend
+    :rtype:str
+    """
+    kopia=y.copy()
     for i in range(3):
         ind=kopia.index(min(kopia))
-        print(f"{i+1} inimene - {i[ind]} saab väikse palk: {p[ind]}")
+        print(f"{i+1} inimene - {x[ind]} saab väikse palk: {y[ind]}")
         kopia.pop(ind)
-        kopia.insert(ind,max(p)+1)
-    kopia=p.copy()
+        kopia.insert(ind,max(y)+1)
+    kopia=y.copy()
     for i in range(3):
         ind=kopia.index(max(kopia))
-        print(f"{i+1} inimene - {i[ind]} saab suur palk: {p[ind]}")
+        print(f"{i+1} inimene - {x[ind]} saab suur palk: {y[ind]}")
         kopia.pop(ind)
-        kopia.insert(ind,min(p)+1)
+        kopia.insert(ind,min(y)+1)
 
-def keskmine(i:list,p:list):
-    kesk=sum(p)/len(p)
+def keskmine(x:list,y:list): 
+    """Kirjeldus...
+    :param list x: Inimeste järjend
+    :param list y: Palgade järjend
+    :rtype:str
+    """
+    kesk=sum(y)/len(y)
     print(f"Keskmine palk on {kesk}")
-    for i in range(len(i)):
-        if p[i]>=kesk:
-            print(f"{i[i]} saab suurem kui keskmine palk, ta saab {p[i]}")
+    for i in range(len(x)):
+        if y[i]>=kesk:
+            print(f"{x[i]} saab suurem kui keskmine palk, ta saab {y[i]}")
+
+def tulumaks(x:list,y:list): 
+    """Kirjeldus...
+    :param list x: Inimeste järjend
+    :param list y: Palgade järjend
+    :rtype:str
+    """
+    for i in range(0,len(y)):
+        if y[i]<500:
+            palk=y[i]
+        elif 500>=y[i]<=1200:
+            palk=(y[i]-500)-(y[i]-500)*0.2
+        elif 1200>y[i]>=2099:
+            palk=(500-(5/9)*(y[i]-1200))-(500-(5/9)*(y[i]-1200))*0.2
+        else:
+            palk=y[i]*0.2
+        print(f"{x[i]} on maksuvaba palk {palk}")
+
+
+def lowav(x:list,y:list):
+    """Kirjeldus...
+    :param list x: Inimeste järjend
+    :param list y: Palgade järjend
+    :rtype: list, list
+    """
+    x1=[] 
+    y1=[]
+    kesk=sum(y)/len(y)
+    print(f"Keskmine palk on {kesk}")
+    for i in range(0,len(x)):
+        if y[i]>kesk:
+            y1.remove(y[i])
+            x1.remove(x[i])
+    x=x1 
+    y=y1
+    return x,y
+
+def suurtitle(x:list,y:list):
+    """Kirjeldus...
+    :param list x: Inimeste järjend
+    :param list y: Palgade järjend
+    :rtype: list, list
+    """
+    for i in range(0,len(x)):
+        x[i]=x[i].title()
+        y[i]=round(y[i],1) 
+        y[i]=int(y[i])
+    return x,y
+
+def fromnyear(x:list,y:list):
+
+    return x,y
+
+def every3(x:list,y:list):
+
+    return x,y
+
+def loading(filename="Palk",filename2="Nimi"):
+    with open(filename, "rb") as f:
+        palgad = pickle.load(f)
+    with open(filename2, "rb") as f:
+            inimesed = pickle.load(f)
