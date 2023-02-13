@@ -1,4 +1,4 @@
-from datetime import date,datetime
+﻿from datetime import date,datetime
 
 def Lisa_andmed(i:list,p:list):
     """Kirjeldus
@@ -92,5 +92,54 @@ def findnimi(i:list,p:list):
     return i,p
 
 def sissenumb(i:list,p:list):
+    nimi=input("Kelle palk tahad leia? ")
+    while nimi not in i:
+        nimi=input("kirjuta õige nimi ")
+    n=i.count(nimi)
+    if n!=1:
+        print(f"Siin on mõned inimesed kes nimi on {nimi}") 
+        kopia=i.copy()
+        for i in range(n):
+            ind=kopia.index(nimi)
+            kopia.remove(nimi)
+            kopia.insert(ind,"")
+            print(f"{i+1} {nimi} saab {p[ind]}")
+    else:
+        ind=i.index(nimi)
+        print(f"{nimi} saab {p[ind]}")
+       
 
+def palko(i:list,p:list):
+    palk=input("Kirjuta igasugune palk ")
+    while palk.replace(".","",1).isdigit()==False: 
+        palk=input("Kirjuta õige palk ")
+    palk=float(palk)
+    for x in range(len(i)):
+        if p[x]>palk: 
+            print(f"{i[x]} saab suurem kui {palk}")
+        elif p[x]<palk: 
+            print(f"{i[x]} saab väiksem kui {palk}")
+        else:
+            print(f"{i[x]} saab täpselt {palk}")
+    return i,p
 
+def top3(i:list,p:list): 
+    kopia=p.copy()
+    for i in range(3):
+        ind=kopia.index(min(kopia))
+        print(f"{i+1} inimene - {i[ind]} saab väikse palk: {p[ind]}")
+        kopia.pop(ind)
+        kopia.insert(ind,max(p)+1)
+    kopia=p.copy()
+    for i in range(3):
+        ind=kopia.index(max(kopia))
+        print(f"{i+1} inimene - {i[ind]} saab suur palk: {p[ind]}")
+        kopia.pop(ind)
+        kopia.insert(ind,min(p)+1)
+
+def keskmine(i:list,p:list):
+    kesk=sum(p)/len(p)
+    print(f"Keskmine palk on {kesk}")
+    for i in range(len(i)):
+        if p[i]>=kesk:
+            print(f"{i[i]} saab suurem kui keskmine palk, ta saab {p[i]}")

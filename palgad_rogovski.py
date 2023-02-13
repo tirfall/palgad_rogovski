@@ -4,9 +4,9 @@ palgad=[1200,2500,750,395,1200]
 inimesed=["A","B","C","D","A"]
 
 while True:
-    #try:
+    try:
         
-        choice=int(input("Menu:\n0 - exit\n1 - Lisa andmed\n2 - Vaata andmed\n3 - Kustuta andmed\n4 - maximum palk\n5 - minimum palk\n6 - sort palgad\n7 - Otsi palk\n"))
+        choice=int(input("Menu:\n0 - exit\n1 - Lisa andmed\n2 - Vaata andmed\n3 - Kustuta andmed\n4 - maximum palk\n5 - minimum palk\n6 - sort palgad\n7 - Otsi palk\n7 - Otsi palk\n"))
         if choice==0:
             break
         elif choice==1:
@@ -27,19 +27,21 @@ while True:
         elif choice==7:
             inimesed,palgad=findnimi(inimesed,palgad)
         elif choice==8:
-            inimesed,palgad=padd(inimesed,palgad)
+            inimesed,palgad=sissenumb(inimesed,palgad)
         elif choice==9:
-            inimesed,palgad=findnimi(inimesed,palgad)
+            inimesed,palgad=palko(inimesed,palgad)
         elif choice==10:
-            inimesed,palgad=findnimi(inimesed,palgad)
+            inimesed,palgad=top3(inimesed,palgad)
         elif choice==11:
-            inimesed,palgad=findnimi(inimesed,palgad)
+            inimesed,palgad=keskmine(inimesed,palgad)
         elif choice==12:
             inimesed,palgad=findnimi(inimesed,palgad)
         elif choice==13:
             inimesed,palgad=findnimi(inimesed,palgad)
         elif choice==14:
             inimesed,palgad=findnimi(inimesed,palgad)
-    #except ValueError:
-    #    print("Vale number")
+        elif choice==15:
+            inimesed,palgad=findnimi(inimesed,palgad)
+    except ValueError:
+        print("Vale number")
 
