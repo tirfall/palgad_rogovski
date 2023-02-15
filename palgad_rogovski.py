@@ -24,7 +24,7 @@ else:
 while True:
     try:
         
-        choice=int(input("Menu:\n0 - exit\n1 - Lisa andmed\n2 - Vaata andmed\n3 - Kustuta andmed\n4 - maximum palk\n5 - minimum palk\n6 - sort palgad\n7 - Leia palk nimi abiga\n8 - Leia palk nimi abiga\n8 - Leia kes saab palk suurem, väiksem või täpselt kui palk\n9 - Leia top 3 inimesed kes saab väike palk ja suur palk\n10 - Otsi keskmine\n17 - Adminpanel\n"))
+        choice=int(input("Menu:\n0 - exit\n1 - Lisa andmed\n2 - Vaata andmed\n3 - Kustuta andmed\n4 - maximum palk\n5 - minimum palk\n6 - sort palgad\n7 - Leia palk nimi abiga\n8 - Leia kes saab palk suurem, väiksem või täpselt kui palk\n9 - Leia top 3 inimesed kes saab väike palk ja suur palk\n10 - Otsi keskmine\n11 - Tulumaksujärgne palk\n12 - Sorteeri nime järgi\n13 - Leida neid, kes saavad palka alla keskmise ja kustutada need nimekirjad\n14 - Muuda loendeid\n15 - teada saada, kui suur on töötaja palk N aasta pärast\n16 - Iga kolmanda isiku ümbernimetamine\n17 - adminpanel\n"))
         if choice==0:
             break
         elif choice==1:
@@ -47,7 +47,7 @@ while True:
         elif choice==8:
             inimesed,palgad=palko(inimesed,palgad)
         elif choice==9:
-            tomami(inimesed,palgad)
+            toma(inimesed,palgad)
         elif choice==10:
             keskmine(inimesed,palgad)
         elif choice==11:
@@ -67,15 +67,23 @@ while True:
             passans=int(input("Enter password:"))
             if passans==8484:
                 while True:
-                    adminchoice = int(input("Menu:\n1 - load last version\n2 - Load reserv version\n3 - Save version\n4 - exit\n"))
+                    adminchoice = int(input("Menu:\n1 - load last version\n2 - Load reserv version\n3 - Save version\n4 - Save reserve version\n5 - \n6 - exit"))
                     if adminchoice == 1:
                         loading
+                        print(inimesed,"\n",palgad)
                         print("Succesful")
                     elif adminchoice == 2:
                         print()
+                        with open(filename, "rb") as f:
+                            palgad = pickle.load(f)
+                        with open(filename2, "rb") as f:
+                                inimesed = pickle.load(f)
                     elif adminchoice == 3:
+                        saving
                         print()
-                    elif adminchoice == 4:
+                    elif adminchoice==5:
+                        deleteall
+                    elif adminchoice == 6:
                         break
                     else:
                         print("Vale number")

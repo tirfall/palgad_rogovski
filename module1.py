@@ -93,7 +93,7 @@ def findnimi(i:list,p:list):
 
     return i,p
 
-       
+
 
 def palko(i:list,p:list):
     palk=input("Kirjuta igasugune palk ")
@@ -109,12 +109,7 @@ def palko(i:list,p:list):
             print(f"{i[x]} saab täpselt {palk}")
     return i,p
 
-def tomami(x:list,y:list): 
-    """Kirjeldus...
-    :param list x: Inimeste järjend
-    :param list y: Palgade järjend
-    :rtype:str
-    """
+def toma(x:list,y:list):
     kopia=y.copy()
     for i in range(3):
         ind=kopia.index(min(kopia))
@@ -129,11 +124,6 @@ def tomami(x:list,y:list):
         kopia.insert(ind,min(y)+1)
 
 def keskmine(x:list,y:list): 
-    """Kirjeldus...
-    :param list x: Inimeste järjend
-    :param list y: Palgade järjend
-    :rtype:str
-    """
     kesk=sum(y)/len(y)
     print(f"Keskmine palk on {kesk}")
     for i in range(len(x)):
@@ -189,15 +179,43 @@ def suurtitle(x:list,y:list):
     return x,y
 
 def fromnyear(x:list,y:list):
-
-    return x,y
+    nimi=input("Keda soovite muudatustest teada? ")
+    aastat=input("Kirjuta mitu aastat:")
+    while nimi not in x:
+        nimi=input("Kirjuta õige nimi")
+    ind=x.index(nimi)
+    newy=y[ind]
+    for j in range(0,int(aastat)):
+        newy+=newy*0.05
+    print(f"{nimi} palk {aastat} aasta pärast on {round(newy,2)} eurot")
 
 def every3(x:list,y:list):
+    for i in range(0,len(x),3):
+        nameans=input("Kirjuta uus nimi: ")
+        while nameans.isdigit() or      len(nameans)<1:
+            nameans=input("Kirjuta õige nimi")
+        x.pop(i)
+        x.insert(i,nameans)
+    return x
 
-    return x,y
-
-def loading(filename="Palk",filename2="Nimi"):
+def loading(x:list,y:list):
+    filename="Palk"
+    filename2="Nimi"
     with open(filename, "rb") as f:
-        palgad = pickle.load(f)
+        y = pickle.load(f)
     with open(filename2, "rb") as f:
-            inimesed = pickle.load(f)
+        x = pickle.load(f)
+
+def saving(x:list,y:list):
+    filename="Palk"
+    filename2="Nimi"
+    with open(filename, "wb") as f:
+                    pickle.dump(y, f)
+    with open(filename2, "wb") as f:
+                    pickle.dump(x, f)
+
+def deleteall(x:list,y:list):
+    x.clear()
+    y.clear()
+
+
